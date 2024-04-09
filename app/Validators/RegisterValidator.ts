@@ -9,18 +9,18 @@ import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 export default class RegsiterValidator {
   constructor(protected ctx: HttpContextContract) {}
 
-  public reporters = validator.reporters.vanilla;
+  public reporter = validator.reporters.vanilla;
 
   public schema = schema.create({
-    // userName: schema.string({ trim: true }, [
+    // user_name: schema.string({ trim: true }, [
     //   rules.minLength(3),
-    //   rules.unique({ table: "users", column: "userName" }),
+    //   rules.unique({ table: "users", column: "user_name" }),
     // ]),
     name: schema.string({ trim: true }, [
       rules.minLength(2),
       rules.maxLength(50),
     ]),
-    email: schema.string([
+    email: schema.string({ trim: true }, [
       rules.email(),
       rules.unique({ table: "users", column: "email" }),
     ]),
@@ -30,5 +30,7 @@ export default class RegsiterValidator {
     ]),
   });
 
-  public messages: CustomMessages = {};
+  public messages: CustomMessages = {
+    "email.unique": "{{field}} is not available.",
+  };
 }

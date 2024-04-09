@@ -15,7 +15,7 @@ export default class AuthController {
     try {
       const token = await auth
         .use("api")
-        .attempt(payload.email, payload.password);
+        .attempt(payload.email.toLowerCase(), payload.password);
       return response
         .status(200)
         .json({ messsage: "Logged in succesfully", token });
@@ -26,6 +26,7 @@ export default class AuthController {
 
   public async register({ request, response }: HttpContextContract) {
     const payload = await request.validate(RegsiterValidator);
+    console.log('payload: >>>>>>>>>>>>>>>>', payload);
     try {
       await User.create(payload);
       return response
@@ -33,7 +34,7 @@ export default class AuthController {
         .json({ message: "Account Created successfully" });
     } catch (error) {
         console.log('error: ', error);
-      return response.status(400).json({ message: "Invliad Credentails" });
+      return response.status(400).json({ message: "Please enter valid details" });
     }
   }
 }
