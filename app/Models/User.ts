@@ -35,7 +35,7 @@ export default class User extends BaseModel {
   }
 
   @beforeSave()
-  public static async tolowercaseEmail(user: User) {
+  public static tolowercaseEmail(user: User) {
     if (user.$dirty.email) {
       user.email = user.email?.toLowerCase();
     }
