@@ -26,15 +26,16 @@ export default class AuthController {
 
   public async register({ request, response }: HttpContextContract) {
     const payload = await request.validate(RegsiterValidator);
-    console.log('payload: >>>>>>>>>>>>>>>>', payload);
     try {
       await User.create(payload);
       return response
         .status(200)
         .json({ message: "Account Created successfully" });
     } catch (error) {
-        console.log('error: ', error);
-      return response.status(400).json({ message: "Please enter valid details" });
+      console.log("error: ", error);
+      return response
+        .status(400)
+        .json({ message: "Please enter valid details" });
     }
   }
 }
