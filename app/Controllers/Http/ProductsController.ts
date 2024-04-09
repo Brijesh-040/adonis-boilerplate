@@ -17,7 +17,7 @@ export default class ProductsController {
       reporter: validator.reporters.vanilla,
     });
     try {
-      payload['created_by'] = user?.id || null;
+      payload["created_by"] = user?.id || null;
       const product = await Product.create(payload);
       return response
         .status(201)
@@ -72,6 +72,22 @@ export default class ProductsController {
       return response
         .status(400)
         .json({ message: "Please enter valid details" });
+    }
+  }
+
+  public async deleteProduct({ params, response }: HttpContextContract) {
+    try {
+      const product = await Product.findBy("id", params.id);
+      if (product) {
+        product.isdeleted = true;
+        await product.save();
+        return response.status(200).send({ message: "Deleted successfully!" });
+      } else {
+        return response.status(400).json({ message: "No such product found" });
+      }
+    } catch (error) {
+      console.log("error: ", error);
+      return response.status(500).json({ message: "Internal Server Error" });
     }
   }
 }
