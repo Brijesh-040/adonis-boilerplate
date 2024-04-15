@@ -3,10 +3,13 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "start": "node ace serve --watch",
     "dev": "node ace serve --watch",
     "build": "node ace build --production",
-    "start": "node server.js",
-    "test": "node ace test"
+    "test": "node ace test",
+    "lint": "./node_modules/.bin/eslint . --ext .ts",
+    "lint:fix": "./node_modules/.bin/eslint . --ext .ts --fix",
+    "db:refresh": "node ace migration:rollback --batch 0 && node ace migration:run && node ace db:seed"
   },
   "devDependencies": {
     "@adonisjs/assembler": "^5.9.6",

@@ -24,5 +24,5 @@ import "./routes/auth";
 import "./routes/product";
 
 Route.get("/", async () => {
-  return { hello: "adonis practice" };
+  return { hello: "Brijesh Lakhani" };
 });
